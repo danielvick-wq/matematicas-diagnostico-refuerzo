@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>DOCUMENTO TÉCNICO N° 4: EXTRACTO INDEXADO DE CÓDIGO FUENTE</title>
+    <!-- KaTeX CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script>
+    <!-- Mermaid JS -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 20mm 15mm 20mm 15mm;
+            @bottom-center {
+                content: counter(page);
+                font-family: "Times New Roman", Times, serif;
+                font-size: 9pt;
+            }
+        }
+
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 11pt;
+            line-height: 1.45;
+            color: #111111;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        /* ESTILOS DE PORTADA FORMAL LEGAL */
+        .legal-cover {
+            text-align: center;
+            padding: 40px 20px 20px 20px;
+            page-break-after: always;
+            min-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .legal-institution {
+            font-size: 14pt;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .legal-subinstitution {
+            font-size: 10pt;
+            text-transform: uppercase;
+            margin-bottom: 35px;
+            color: #222222;
+        }
+        .legal-title {
+            font-size: 16pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            line-height: 1.25;
+            border-top: 2px solid #000000;
+            border-bottom: 2px solid #000000;
+            padding: 14px 0;
+        }
+        .legal-subtitle {
+            font-size: 11.5pt;
+            font-weight: normal;
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+        .legal-box {
+            margin: 30px auto;
+            width: 90%;
+            border: 1px solid #000000;
+            padding: 18px 22px;
+            text-align: left;
+            font-size: 10pt;
+            line-height: 1.75;
+            background-color: #ffffff;
+        }
+        .legal-box-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        .legal-footer {
+            margin-top: 50px;
+            font-size: 9.5pt;
+            text-transform: uppercase;
+        }
+
+        /* ENCABEZADOS Y JERARQUÍA */
+        h1 {
+            font-size: 14.5pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1.5px solid #000000;
+            padding-bottom: 4px;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            page-break-before: always;
+        }
+        h2 {
+            font-size: 12.5pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px solid #444444;
+            padding-bottom: 3px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            page-break-after: avoid;
+        }
+        h3 {
+            font-size: 11pt;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            page-break-after: avoid;
+        }
+        h4 {
+            font-size: 10pt;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 4px;
+            page-break-after: avoid;
+        }
+        p {
+            margin-bottom: 10px;
+            text-indent: 15px;
+            text-align: justify;
+        }
+        ul {
+            margin-top: 5px;
+            margin-bottom: 12px;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 4px;
+        }
+
+        /* TABLAS FORMALES LEGALES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 9pt;
+            page-break-inside: avoid;
+        }
+        th, td {
+            border: 1px solid #000000;
+            padding: 6px 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 8.5pt;
+        }
+
+        /* CÓDIGO Y BLOQUES */
+        pre {
+            background-color: #f8f8f8;
+            border: 1px solid #444444;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 8.5pt;
+            line-height: 1.25;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            margin: 12px 0;
+            page-break-inside: avoid;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 9pt;
+            background: #f0f0f0;
+            padding: 1px 4px;
+            border: 1px solid #cccccc;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #000000;
+            margin: 20px 0;
+        }
+        .mermaid {
+            background: #ffffff;
+            border: 1px solid #000000;
+            padding: 12px;
+            margin: 15px 0;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+        .mermaid svg {
+            max-width: 100% !important;
+            height: auto !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="legal-cover">
+        <div>
+            <div class="legal-institution">REPÚBLICA DE COLOMBIA</div>
+            <div class="legal-subinstitution">DIRECCIÓN NACIONAL DE DERECHO DE AUTOR — REGISTRO DE SOPORTE LÓGICO</div>
+            <div class="legal-title">DOCUMENTO TÉCNICO N° 4: EXTRACTO INDEXADO DE CÓDIGO FUENTE</div>
+            <div class="legal-subtitle">Registro de Propiedad Intelectual (DNDA) — Soporte Lógico (6,454 Líneas)</div>
+            
+            <div class="legal-box">
+                <div class="legal-box-row"><strong>DENOMINACIÓN DE LA OBRA:</strong> <span>MATEMÁTICAS DIAGNÓSTICO & REFUERZO ADAPTATIVO</span></div>
+                <div class="legal-box-row"><strong>CLASIFICACIÓN LEGAL:</strong> <span>Soporte Lógico / Programa de Computador</span></div>
+                <div class="legal-box-row"><strong>AUTOR Y TITULAR:</strong> <span>DANIEL VICK</span></div>
+                <div class="legal-box-row"><strong>VERSIÓN DEL SOFTWARE:</strong> <span>1.0.0</span></div>
+                <div class="legal-box-row"><strong>FECHA DE DOCUMENTACIÓN:</strong> <span>20 de Noviembre de 2026</span></div>
+                <div class="legal-box-row"><strong>MARCO REGULATORIO:</strong> <span>Ley 23 de 1982 &amp; Decisión Andina 351</span></div>
+            </div>
+        </div>
+
+        <div class="legal-footer">
+            EXPEDIENTE OFICIAL DE REGISTRO REGISTRAL<br>
+            MANIZALES, CALDAS, COLOMBIA
+        </div>
+    </div>
+
+    <h1>DOCUMENTO TÉCNICO N° 4: EXTRACTO INDEXADO DE CÓDIGO FUENTE</h1>
+<h1>MUESTREO REPRESENTATIVO DE CÓDIGO FUENTE PARA REGISTRO DE SOPORTE LÓGICO</h1>
+<p><strong>REPÚBLICA DE COLOMBIA — DIRECCIÓN NACIONAL DE DERECHO DE AUTOR (DNDA)</strong>  </p>
+<p><strong>SOLICITUD DE REGISTRO DE SOPORTE LÓGICO (PROGRAMA DE COMPUTADOR)</strong>  </p>
+<p><strong>DENOMINACIÓN DE LA OBRA:</strong> MATEMÁTICAS DIAGNÓSTICO &amp; REFUERZO ADAPTATIVO — PLATAFORMA DE EVALUACIÓN DIAGNÓSTICA Y NIVELACIÓN DE COMPETENCIAS MATEMÁTICAS  </p>
+<p><strong>FECHA DE DOCUMENTACIÓN:</strong> 20 DE NOVIEMBRE DE 2026  </p>
+<p><strong>VERSIÓN DEL SOFTWARE:</strong> 1.0.0  </p>
+<p><strong>TITULARIDAD DE DERECHOS:</strong> DANIEL VICK  </p>
+<hr>
+<h2>1. PRESENTACIÓN FORMAL Y MARCO LEGAL DE PROTECCIÓN</h2>
+<p>El presente documento constituye el <strong>MUESTREO REGISTRAL INDEXADO Y EXTRACTO REPRESENTATIVO DE CÓDIGO FUENTE</strong> del programa de computador denominado <strong>&quot;Matemáticas Diagnóstico &amp; Refuerzo Adaptativo — Plataforma de Evaluación Diagnóstica y Nivelación de Competencias Matemáticas&quot;</strong>, elaborado conforme a la <strong>Ley 23 de 1982</strong>, la <strong>Decisión Andina 351 de 1993</strong>, el <strong>Decreto 1360 de 1989</strong> y los lineamientos de la <strong>Dirección Nacional de Derecho de Autor (DNDA)</strong> de la República de Colombia.</p>
+<p>Para cumplir la exigencia de depósito del soporte lógico sin exponer el código completo a copia no autorizada, el expediente se organiza en tres partes:</p>
+<p>1. <strong>Mapa de Módulos e Indexación Criptográfica (SHA-256):</strong> identificación de los 18 archivos fuente que componen el sistema, con un total de <strong>6,454 líneas de código</strong>. Cada archivo se acompaña de su firma SHA-256 calculada sobre el archivo íntegro.</p>
+<p>2. <strong>Muestreo Representativo de Inicio y Cierre:</strong> inclusión de las primeras y últimas líneas de los módulos esenciales, que acreditan la estructura, las dependencias y los contratos de exportación.</p>
+<p>3. <strong>Reserva de Código Intermedio:</strong> descripción, sin transcripción, de las rutinas intermedias de los módulos muestreados, protegidas como secreto empresarial.</p>
+<hr>
+<h2>2. ÍNDICE GENERAL Y MAPA DE MÓDULOS DEL CÓDIGO FUENTE (18 ARCHIVOS / 6,454 LÍNEAS)</h2>
+<table><thead><tr><th>Módulo / Archivo Fuente</th><th>Rol y Descripción Funcional</th><th>Lenguaje / Formato</th><th>Total Líneas</th><th>Muestreo Depositado</th><th>Firma Digital de Autenticidad (SHA-256)</th><th>Estado de Reserva</th></tr></thead><tbody><tr><td><code>index.html</code></td><td>Documento HTML de entrada, metadatos, fuentes tipográficas (Plus Jakarta Sans, JetBrains Mono) y montaje</td><td>HTML5</td><td>21</td><td>Índice y firma</td><td><code>52FD28996310851801D2B7894D560C32E6F1E8AFCF75700833DA4FEA83DAD3F0</code></td><td>Reservado (Indexado por firma)</td></tr><tr><td><code>vite.config.ts</code></td><td>Configuración del empaquetador Vite, integración de Tailwind CSS v4 y resolución de rutas</td><td>TypeScript</td><td>26</td><td>Índice y firma</td><td><code>62B39C8CEEFFF3DEE0A70DF069C86A55BA0547451C164E663F531C9F2CA6872F</code></td><td>Reservado (Indexado por firma)</td></tr><tr><td><code>vercel.json</code></td><td>Configuración de enrutamiento y reescritura de URLs para despliegue SPA en la plataforma Vercel</td><td>JSON</td><td>1</td><td>Índice y firma</td><td><code>49A7A82A4DD7DF742E864358FEC2053708CA4ED3C07E228CDAF96EDD318AB0BC</code></td><td>Reservado (Indexado por firma)</td></tr><tr><td><code>package.json</code></td><td>Definición del manifiesto del proyecto, scripts de compilación, dependencias y metadatos</td><td>JSON</td><td>36</td><td>Índice y firma</td><td><code>E424DD05ED7D7A77ED7FDD5101C9382D670022D3CB05A850A4C9BC29B7811F45</code></td><td>Reservado (Indexado por firma)</td></tr><tr><td><code>src/main.tsx</code></td><td>Punto de entrada de ejecución y montaje de la aplicación React 19 en el contenedor DOM</td><td>React 19 / TSX</td><td>5</td><td>Índice y firma</td><td><code>30D02EE59CB6576973DEA4368093B2DCAE692A40668F288FDBC66A114873FCD3</code></td><td>Reservado (Indexado por firma)</td></tr><tr><td><code>src/App.tsx</code></td><td>Componente raíz: orquestador de pestañas, gestión de respuestas y persistencia reactiva en localStorage</td><td>React 19 / TSX</td><td>334</td><td>Líneas 1–45 y 295–334</td><td><code>86A91DD4C3A22BEA4A038C7CB9F8592F70B3E32652D9E74509B5CD2D6E1F509A</code></td><td>Reservado (Reserva Parcial Intermedia)</td></tr><tr><td><code>src/components/DiagnosticReport.tsx</code></td><td>Informe psicométrico: calificación global, semaforización, fortalezas y falencias</td><td>React 19 / TSX</td><td>492</td><td>Índice y firma</td><td><code>BCF7A3294616C0E7CDEB3AE2EBF7B637CC16AC25D6EADBB90DEF888DF9DB4C43</code></td><td>Reservado (Indexado por firma)</td></tr><tr><td><code>src/components/DiagramRenderer.tsx</code></td><td>Motor de renderizado procedimental de diagramas matemáticos y esquemas geométricos SVG</td><td>React 19 / TSX</td><td>2,174</td><td>Líneas 1–50 y 2135–2174</td><td><code>832397244F8D02A2E1361138465AA434FEABD8FDB8D0AB0554D4E170CEFD5086</code></td><td>Reservado (Reserva Parcial Intermedia)</td></tr><tr><td><code>src/components/Header.tsx</code></td><td>Barra superior con navegación por pestañas, contadores de progreso y controles de examen</td><td>React 19 / TSX</td><td>143</td><td>Índice y firma</td><td><code>51951619B195207A1B08AF1A2B1789AE67AF3AF3FC383C1FD820CD918D16B358</code></td><td>Reservado (Indexado por firma)</td></tr><tr><td><code>src/components/QuestionBankManager.tsx</code></td><td>Administrador del banco de preguntas: filtros, creación, eliminación e import/export JSON</td><td>React 19 / TSX</td><td>1,107</td><td>Índice y firma</td><td><code>90F3E6355D8729EAEEADCB4A0A8479C24997403052D61700FDF69D820EE0376A</code></td><td>Reservado (Indexado por firma)</td></tr><tr><td><code>src/components/RemediationView.tsx</code></td><td>Módulo de nivelación adaptativa: ejercicios guiados focalizados en vacíos conceptuales</td><td>React 19 / TSX</td><td>534</td><td>Índice y firma</td><td><code>69186FC8F4A5C950BC3F1E1627485E8B5E54A32A6037D1C8B25D257D75982D48</code></td><td>Reservado (Indexado por firma)</td></tr><tr><td><code>src/components/TestView.tsx</code></td><td>Módulo de presentación del examen: preguntas interactivas, selección de opciones y banderas</td><td>React 19 / TSX</td><td>404</td><td>Índice y firma</td><td><code>9FF2FCC7D3D1744548A62B6830D54D07F2EF010C1A108AE8F0B678C285EF8B09</code></td><td>Reservado (Indexado por firma)</td></tr><tr><td><code>src/data/initialQuestions.ts</code></td><td>Banco canónico calibrado de 20 preguntas diagnósticas con retroalimentación y pistas</td><td>TypeScript</td><td>392</td><td>Índice y firma</td><td><code>D81CCD82AC1362DDDC8C27059DB2D3512099CD4ABE7674E455806AC46D444014</code></td><td>Reservado (Indexado por firma)</td></tr><tr><td><code>src/data/remediationBank.ts</code></td><td>Banco especializado de ejercicios correctivos, síntesis conceptuales y resolución paso a paso</td><td>TypeScript</td><td>423</td><td>Índice y firma</td><td><code>70D975BEAA33948BC1B82FF3A2F42FE253944E0971F3A367B4279D384FEFFBC5</code></td><td>Reservado (Indexado por firma)</td></tr><tr><td><code>src/index.css</code></td><td>Importación y configuración de directivas globales de Tailwind CSS v4</td><td>CSS3 / Tailwind</td><td>1</td><td>Índice y firma</td><td><code>42070E0B45BB201B2B838A52AAAA6E965F964E0B542D97F1FE517FE59C4B75A8</code></td><td>Reservado (Indexado por firma)</td></tr><tr><td><code>src/lib/insforge.ts</code></td><td>Cliente de integración para backend y persistencia remota opcional</td><td>TypeScript</td><td>9</td><td>Índice y firma</td><td><code>47E02D4491110A157722432CCDC04603D4A1020E2CBF959BD93F9217E8A8763C</code></td><td>Reservado (Indexado por firma)</td></tr><tr><td><code>src/types.ts</code></td><td>Definición del modelo de datos tipado: saberes, habilidades, preguntas, diagnósticos y nivelación</td><td>TypeScript</td><td>108</td><td>Líneas 1–45 y 74–108</td><td><code>8ED4428DC87DE39DA0B77ACE799BCAC44CEEF7E173413CEE2F98E59EDE7C97F7</code></td><td>Reservado (Reserva Parcial Intermedia)</td></tr><tr><td><code>src/utils/diagnosticEngine.ts</code></td><td>Motor algorítmico psicométrico: cómputo diagnóstico, umbrales y recomendación adaptativa</td><td>TypeScript</td><td>244</td><td>Líneas 1–45 y 210–244</td><td><code>7115107562808FEE1F6C32215124C802D7B555E75402AA03DD8CF56978E709FA</code></td><td>Reservado (Reserva Parcial Intermedia)</td></tr></tbody></table>
+<p>Las firmas se calcularon sobre el contenido exacto de cada archivo en la fecha de documentación. Cualquier cambio posterior en un archivo, incluido el tipo de salto de línea, produce una firma distinta; por eso este documento debe regenerarse (<code>npm run docs</code>) con la versión definitiva que se deposite.</p>
+<hr>
+<h2>3. PROTECCIÓN DEL CÓDIGO EN LA VERSIÓN DISTRIBUIDA</h2>
+<p>La versión de producción se genera con Vite, que elimina comentarios, acorta los nombres internos y une todos los módulos en un único archivo JavaScript minificado. El código fuente legible (TypeScript y TSX), cuyas firmas se listan en la sección 2, no se distribuye a los usuarios finales.</p>
+<pre><code class="language-text">+-----------------------------------------------------------------------------------------------+
+|                     CADENA DE CONSTRUCCIÓN DE LA VERSIÓN DISTRIBUIDA                          |
++-----------------------------------------------------------------------------------------------+
+| 1. VERIFICACIÓN DE TIPOS   tsc --noEmit  ──►  el código fuente se valida sin emitir JS         |
+| 2. EMPAQUETADO             vite build    ──►  un solo bundle JS + CSS en dist/                 |
+| 3. MINIFICACIÓN            eliminación de comentarios y espacios, renombrado de símbolos       |
+|                            locales y eliminación de código no usado (tree-shaking)             |
+| 4. INDEXACIÓN              firma SHA-256 de cada archivo fuente (este documento)               |
++-----------------------------------------------------------------------------------------------+</code></pre>
+<hr>
+<h2>4. SECCIÓN I: MUESTREO DE MOTOR PSICOMÉTRICO Y RECOMENDACIÓN ADAPTATIVA (<code>src/utils/diagnosticEngine.ts</code>)</h2>
+<h3>4.1 Encabezado, Dependencias y Definiciones (Líneas 1 a 45)</h3>
+<pre><code class="language-typescript">import { 
+  Question, 
+  DiagnosticResult, 
+  KnowledgeArea, 
+  SkillArea, 
+  SaberDiagnosis, 
+  SkillDiagnosis, 
+  RemediationExercise 
+} from &#039;../types&#039;;
+import { REMEDIATION_EXERCISES } from &#039;../data/remediationBank&#039;;
+
+const ALL_SABERES: KnowledgeArea[] = [
+  &#039;Aritmética&#039;,
+  &#039;Álgebra&#039;,
+  &#039;Geometría&#039;,
+  &#039;Trigonometría&#039;,
+  &#039;Cálculo&#039;
+];
+
+const ALL_SKILLS: SkillArea[] = [
+  &#039;Habilidades básicas&#039;,
+  &#039;Procesos de pensamiento y razonamiento&#039;,
+  &#039;Habilidades especiales&#039;,
+  &#039;Habilidades de análisis&#039;
+];
+
+export function computeDiagnosticReport(
+  questions: Question[],
+  answers: Record&lt;string, &#039;a&#039; | &#039;b&#039; | &#039;c&#039; | &#039;d&#039; | null&gt;
+): DiagnosticResult {
+  let totalCorrect = 0;
+  const totalQuestions = questions.length;
+
+  const saberMap: Record&lt;KnowledgeArea, { total: number; correct: number }&gt; = {
+    Aritmética: { total: 0, correct: 0 },
+    Álgebra: { total: 0, correct: 0 },
+    Geometría: { total: 0, correct: 0 },
+    Trigonometría: { total: 0, correct: 0 },
+    Cálculo: { total: 0, correct: 0 }
+  };
+
+  const skillMap: Record&lt;SkillArea, { total: number; correct: number }&gt; = {
+    &#039;Habilidades básicas&#039;: { total: 0, correct: 0 },
+    &#039;Procesos de pensamiento y razonamiento&#039;: { total: 0, correct: 0 },
+    &#039;Habilidades especiales&#039;: { total: 0, correct: 0 },</code></pre>
+<h3>4.2 RESERVA LEGAL DE CÓDIGO INTERMEDIO — MOTOR PSICOMÉTRICO Y RECOMENDACIÓN ADAPTATIVA</h3>
+<pre><code class="language-typescript">/* =========================================================================================================
+   [ RESERVA LEGAL DE CÓDIGO FUENTE CONFORME A LA LEY 23 DE 1982 Y DECISIÓN ANDINA 351 ]
+   ---------------------------------------------------------------------------------------------------------
+   Las líneas 46 a 209 del archivo fuente &#039;src/utils/diagnosticEngine.ts&#039; corresponden a:
+   - Cálculo de aciertos marginales por los 5 saberes matemáticos y las 4 habilidades cognitivas.
+   - Lógica de categorización semafórica de desempeño (Dominio Alto, Aceptable, Falencia Crítica).
+   - Generación adaptativa de la matriz de fortalezas pedagógicas y falencias críticas del evaluado.
+   - Filtrado conjuntivo de ejercicios correctivos en función del perfil de debilidades detectadas.
+
+   Esta sección se encuentra protegida bajo el régimen de Reserva y Secreto Empresarial.
+   La autenticidad completa del archivo fuente (244 líneas) se valida mediante la firma SHA-256:
+   7115107562808FEE1F6C32215124C802D7B555E75402AA03DD8CF56978E709FA
+   ========================================================================================================= */</code></pre>
+<h3>4.3 Cierre del Módulo (Líneas 210 a 244)</h3>
+<pre><code class="language-typescript">
+  // If student achieved mastery across all areas, offer 1 advanced challenge per saber
+  if (weakSaberes.size === 0 &amp;&amp; weakSkills.size === 0) {
+    const picked: RemediationExercise[] = [];
+    const seenSaberes = new Set&lt;KnowledgeArea&gt;();
+    for (const ex of REMEDIATION_EXERCISES) {
+      if (!seenSaberes.has(ex.saber)) {
+        seenSaberes.add(ex.saber);
+        picked.push(ex);
+      }
+    }
+    return picked;
+  }
+
+  // Score exercises so weak saber + weak skill appear first, then weak saber, then weak skill
+  const scored = REMEDIATION_EXERCISES.map(ex =&gt; {
+    const matchesSaber = weakSaberes.has(ex.saber);
+    const matchesSkill = weakSkills.has(ex.habilidad);
+    const saberDeficit = 100 - (saberScoreMap.get(ex.saber) ?? 100);
+    const skillDeficit = 100 - (skillScoreMap.get(ex.habilidad) ?? 100);
+
+    let priority = 0;
+    if (matchesSaber &amp;&amp; matchesSkill) priority = 300 + saberDeficit + skillDeficit;
+    else if (matchesSaber) priority = 200 + saberDeficit;
+    else if (matchesSkill &amp;&amp; weakSaberes.size === 0) priority = 100 + skillDeficit;
+
+    return { ex, priority };
+  })
+    .filter(item =&gt; item.priority &gt; 0)
+    .sort((a, b) =&gt; b.priority - a.priority);
+
+  return scored.length &gt; 0
+    ? scored.map(item =&gt; item.ex)
+    : REMEDIATION_EXERCISES.slice(0, 5);
+}</code></pre>
+<hr>
+<h2>5. SECCIÓN II: MUESTREO DE MOTOR DE RENDERIZADO PROCEDIMENTAL DE DIAGRAMAS SVG (<code>src/components/DiagramRenderer.tsx</code>)</h2>
+<h3>5.1 Encabezado, Dependencias y Definiciones (Líneas 1 a 50)</h3>
+<pre><code class="language-typescript">import React from &#039;react&#039;;
+
+interface DiagramRendererProps {
+  diagramType?: string;
+  className?: string;
+  showSolution?: boolean;
+}
+
+/**
+ * Helper to plot a quadratic y = a*x^2 + b*x + c cleanly into an SVG coordinate space
+ * where math +Y points UPWARD (svgY = cy - y * sy).
+ */
+function buildParabolaPath(
+  a: number,
+  b: number,
+  c: number,
+  cx: number,
+  cy: number,
+  sx: number,
+  sy: number,
+  xMin = -4.2,
+  xMax = 4.2,
+  yMin = -5.2,
+  yMax = 5.2
+): string {
+  const pts: string[] = [];
+  const steps = 80;
+  for (let i = 0; i &lt;= steps; i++) {
+    const x = xMin + (i / steps) * (xMax - xMin);
+    const y = a * x * x + b * x + c;
+    if (y &gt;= yMin &amp;&amp; y &lt;= yMax) {
+      const px = cx + x * sx;
+      const py = cy - y * sy;
+      pts.push(`${px.toFixed(1)},${py.toFixed(1)}`);
+    }
+  }
+  return pts.join(&#039; &#039;);
+}
+
+/**
+ * Helper to project a 3D point (x, y, z) into 2D axonometric coordinates
+ * (+X forward-left, +Y forward-right, +Z vertical up).
+ */
+function project3D(
+  x: number,
+  y: number,
+  z: number,
+  ox = 158,
+  oy = 172,
+  vx: [number, number] = [-26, 13],</code></pre>
+<h3>5.2 RESERVA LEGAL DE CÓDIGO INTERMEDIO — MOTOR DE RENDERIZADO PROCEDIMENTAL DE DIAGRAMAS SVG</h3>
+<pre><code class="language-typescript">/* =========================================================================================================
+   [ RESERVA LEGAL DE CÓDIGO FUENTE CONFORME A LA LEY 23 DE 1982 Y DECISIÓN ANDINA 351 ]
+   ---------------------------------------------------------------------------------------------------------
+   Las líneas 51 a 2134 del archivo fuente &#039;src/components/DiagramRenderer.tsx&#039; corresponden a:
+   - Proyección isométrica tridimensional axonométrica con transformación de coordenadas 3D a 2D.
+   - Cálculo analítico de raíces y trazado continuo de parábolas cuadráticas con escalado métrico.
+   - Generación combinatoria del Triángulo de Pascal con distribución piramidal centrada.
+   - Modelado geométrico de cuerpos de revolución, cilindros proporcionales y relaciones trigonométricas.
+
+   Esta sección se encuentra protegida bajo el régimen de Reserva y Secreto Empresarial.
+   La autenticidad completa del archivo fuente (2174 líneas) se valida mediante la firma SHA-256:
+   832397244F8D02A2E1361138465AA434FEABD8FDB8D0AB0554D4E170CEFD5086
+   ========================================================================================================= */</code></pre>
+<h3>5.3 Cierre del Módulo (Líneas 2135 a 2174)</h3>
+<pre><code class="language-typescript">    /* Q20: Ecuación fraccionaria l²/24 + l²/24 = 1/3                         */
+    /* ---------------------------------------------------------------------- */
+    case &#039;fraction_equation&#039;:
+      return (
+        &lt;div
+          className={`p-5 bg-slate-50/80 border border-slate-200 rounded-xl flex flex-col items-center ${className}`}
+        &gt;
+          &lt;div className=&quot;text-xs font-medium text-slate-500 mb-3&quot;&gt;Ecuación dada&lt;/div&gt;
+          &lt;div className=&quot;bg-white border border-slate-200 rounded-lg px-8 py-4 shadow-2xs flex items-center gap-2 text-lg sm:text-xl font-serif text-slate-900&quot;&gt;
+            &lt;Frac
+              num={
+                &lt;span&gt;
+                  &lt;i&gt;l&lt;/i&gt;
+                  &lt;sup&gt;2&lt;/sup&gt;
+                &lt;/span&gt;
+              }
+              den=&quot;24&quot;
+              size=&quot;lg&quot;
+            /&gt;
+            &lt;span&gt;+&lt;/span&gt;
+            &lt;Frac
+              num={
+                &lt;span&gt;
+                  &lt;i&gt;l&lt;/i&gt;
+                  &lt;sup&gt;2&lt;/sup&gt;
+                &lt;/span&gt;
+              }
+              den=&quot;24&quot;
+              size=&quot;lg&quot;
+            /&gt;
+            &lt;span&gt;=&lt;/span&gt;
+            &lt;Frac num=&quot;1&quot; den=&quot;3&quot; size=&quot;lg&quot; /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      );
+
+    default:
+      return null;
+  }
+};</code></pre>
+<hr>
+<h2>6. SECCIÓN III: MUESTREO DE MODELO DE DATOS Y CONTRATOS DE TIPOS PSICOMÉTRICOS (<code>src/types.ts</code>)</h2>
+<h3>6.1 Encabezado, Dependencias y Definiciones (Líneas 1 a 45)</h3>
+<pre><code class="language-typescript">export type KnowledgeArea = 
+  | &#039;Aritmética&#039; 
+  | &#039;Geometría&#039; 
+  | &#039;Trigonometría&#039; 
+  | &#039;Álgebra&#039; 
+  | &#039;Cálculo&#039;;
+
+export type SkillArea = 
+  | &#039;Habilidades básicas&#039; 
+  | &#039;Procesos de pensamiento y razonamiento&#039; 
+  | &#039;Habilidades especiales&#039; 
+  | &#039;Habilidades de análisis&#039;;
+
+export type DifficultyLevel = &#039;Básico&#039; | &#039;Intermedio&#039; | &#039;Avanzado&#039;;
+
+export interface QuestionOption {
+  label: &#039;a&#039; | &#039;b&#039; | &#039;c&#039; | &#039;d&#039;;
+  text: string;
+  subtext?: string;
+}
+
+export interface Question {
+  id: string;
+  number: number;
+  prompt: string;
+  saber: KnowledgeArea;
+  habilidad: SkillArea;
+  difficulty: DifficultyLevel;
+  diagramType?: 
+    | &#039;pascal&#039; 
+    | &#039;trees_triangle&#039;
+    | &#039;circle_sequence&#039; 
+    | &#039;symbols_equation&#039; 
+    | &#039;cube_net&#039; 
+    | &#039;solid_3d&#039; 
+    | &#039;parabola_options&#039; 
+    | &#039;fraction_bracket&#039; 
+    | &#039;radical_expr&#039; 
+    | &#039;formula_k&#039;
+    | &#039;cube_triangle&#039; 
+    | &#039;cylinder_volumes&#039; 
+    | &#039;quad_roots&#039; 
+    | &#039;fibonacci_seq&#039; 
+    | &#039;trig_diagram_options&#039; 
+    | &#039;trig_notable_angles&#039;</code></pre>
+<h3>6.2 RESERVA LEGAL DE CÓDIGO INTERMEDIO — MODELO DE DATOS Y CONTRATOS DE TIPOS PSICOMÉTRICOS</h3>
+<pre><code class="language-typescript">/* =========================================================================================================
+   [ RESERVA LEGAL DE CÓDIGO FUENTE CONFORME A LA LEY 23 DE 1982 Y DECISIÓN ANDINA 351 ]
+   ---------------------------------------------------------------------------------------------------------
+   Las líneas 46 a 73 del archivo fuente &#039;src/types.ts&#039; corresponden a:
+   - Definición de las uniones de tipos literales para KnowledgeArea, SkillArea y DifficultyLevel.
+   - Contratos de Question, QuestionOption, DiagnosticResult, SaberDiagnosis y RemediationExercise.
+
+   Esta sección se encuentra protegida bajo el régimen de Reserva y Secreto Empresarial.
+   La autenticidad completa del archivo fuente (108 líneas) se valida mediante la firma SHA-256:
+   8ED4428DC87DE39DA0B77ACE799BCAC44CEEF7E173413CEE2F98E59EDE7C97F7
+   ========================================================================================================= */</code></pre>
+<h3>6.3 Cierre del Módulo (Líneas 74 a 108)</h3>
+<pre><code class="language-typescript">  total: number;
+  correct: number;
+  percentage: number;
+  status: &#039;Dominio Alto&#039; | &#039;Aceptable&#039; | &#039;Falencia Crítica&#039;;
+  feedback: string;
+}
+
+export interface DiagnosticResult {
+  totalQuestions: number;
+  totalCorrect: number;
+  totalPercentage: number;
+  overallLevel: &#039;Sobresaliente&#039; | &#039;Competente&#039; | &#039;Requiere Refuerzo&#039; | &#039;Alerta Pedagógica&#039;;
+  saberBreakdown: SaberDiagnosis[];
+  skillBreakdown: SkillDiagnosis[];
+  fortalezas: string[];
+  falencias: string[];
+  completedAt: string;
+  answers: Record&lt;string, &#039;a&#039; | &#039;b&#039; | &#039;c&#039; | &#039;d&#039; | null&gt;;
+}
+
+export interface RemediationExercise {
+  id: string;
+  saber: KnowledgeArea;
+  habilidad: SkillArea;
+  title: string;
+  conceptSummary: string;
+  formulaOrTip?: string;
+  hint?: string;
+  prompt: string;
+  diagramType?: string;
+  options: QuestionOption[];
+  correctAnswer: &#039;a&#039; | &#039;b&#039; | &#039;c&#039; | &#039;d&#039;;
+  explanation: string;
+  steps: string[];
+}</code></pre>
+<hr>
+<h2>7. SECCIÓN IV: MUESTREO DE COMPONENTE RAÍZ Y GESTIÓN REACTIVA DE ESTADO (<code>src/App.tsx</code>)</h2>
+<h3>7.1 Encabezado, Dependencias y Definiciones (Líneas 1 a 45)</h3>
+<pre><code class="language-typescript">import React, { useState, useEffect } from &#039;react&#039;;
+import { AlertTriangle } from &#039;lucide-react&#039;;
+import { INITIAL_QUESTIONS } from &#039;./data/initialQuestions&#039;;
+import { Question, DiagnosticResult } from &#039;./types&#039;;
+import { computeDiagnosticReport } from &#039;./utils/diagnosticEngine&#039;;
+import { Header, ActiveTab } from &#039;./components/Header&#039;;
+import { TestView } from &#039;./components/TestView&#039;;
+import { DiagnosticReport } from &#039;./components/DiagnosticReport&#039;;
+import { RemediationView } from &#039;./components/RemediationView&#039;;
+import { QuestionBankManager } from &#039;./components/QuestionBankManager&#039;;
+
+const STORAGE_KEY_QUESTIONS = &#039;math_diag_questions_v3&#039;;
+const STORAGE_KEY_ANSWERS = &#039;math_diag_answers_v3&#039;;
+const STORAGE_KEY_FLAGS = &#039;math_diag_flags_v3&#039;;
+const STORAGE_KEY_REPORT = &#039;math_diag_report_v3&#039;;
+
+function renumberQuestions(list: Question[]): Question[] {
+  return list.map((q, idx) =&gt; ({
+    ...q,
+    number: idx + 1
+  }));
+}
+
+const OFFICIAL_QUESTION_MAP = new Map&lt;string, Question&gt;(
+  INITIAL_QUESTIONS.map(q =&gt; [q.id, q])
+);
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState&lt;ActiveTab&gt;(&#039;test&#039;);
+  const [confirmAction, setConfirmAction] = useState&lt;&#039;resetTest&#039; | &#039;resetBank&#039; | null&gt;(null);
+
+  // Questions bank state (syncs official q1..q20 with latest definitions while preserving custom/imported items)
+  const [questions, setQuestions] = useState&lt;Question[]&gt;(() =&gt; {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY_QUESTIONS);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) &amp;&amp; parsed.length &gt; 0) {
+          const restored: Question[] = parsed.map((p: Question) =&gt; {
+            const official = OFFICIAL_QUESTION_MAP.get(p.id);
+            if (official) return official;
+            return { ...p, isCustom: true };
+          });
+          return renumberQuestions(restored);
+        }</code></pre>
+<h3>7.2 RESERVA LEGAL DE CÓDIGO INTERMEDIO — COMPONENTE RAÍZ Y GESTIÓN REACTIVA DE ESTADO</h3>
+<pre><code class="language-typescript">/* =========================================================================================================
+   [ RESERVA LEGAL DE CÓDIGO FUENTE CONFORME A LA LEY 23 DE 1982 Y DECISIÓN ANDINA 351 ]
+   ---------------------------------------------------------------------------------------------------------
+   Las líneas 46 a 294 del archivo fuente &#039;src/App.tsx&#039; corresponden a:
+   - Estrategia de inicialización perezosa de estado con lectura sincronizada de Web Storage.
+   - Efectos reactivos (useEffect) para la persistencia automática de preguntas, respuestas y reporte.
+   - Manejadores de eventos de examen, adición de preguntas, importación JSON y reinicio canónico.
+
+   Esta sección se encuentra protegida bajo el régimen de Reserva y Secreto Empresarial.
+   La autenticidad completa del archivo fuente (334 líneas) se valida mediante la firma SHA-256:
+   86A91DD4C3A22BEA4A038C7CB9F8592F70B3E32652D9E74509B5CD2D6E1F509A
+   ========================================================================================================= */</code></pre>
+<h3>7.3 Cierre del Módulo (Líneas 295 a 334)</h3>
+<pre><code class="language-typescript">                &lt;AlertTriangle className=&quot;w-5 h-5&quot; /&gt;
+              &lt;/div&gt;
+              &lt;div&gt;
+                &lt;h3 className=&quot;text-base font-bold text-slate-900&quot;&gt;
+                  {confirmAction === &#039;resetTest&#039;
+                    ? &#039;¿Reiniciar respuestas del test?&#039;
+                    : &#039;¿Restablecer banco de preguntas?&#039;}
+                &lt;/h3&gt;
+                &lt;p className=&quot;text-xs text-slate-600 mt-1 leading-relaxed&quot;&gt;
+                  {confirmAction === &#039;resetTest&#039;
+                    ? &#039;Se limpiarán tus respuestas actuales y el reporte diagnóstico para comenzar una nueva evaluación desde cero.&#039;
+                    : &#039;Se restaurarán las 20 preguntas originales del examen y se eliminarán las preguntas personalizadas o importadas.&#039;}
+                &lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div className=&quot;flex items-center justify-end gap-2.5 pt-2&quot;&gt;
+              &lt;button
+                onClick={() =&gt; setConfirmAction(null)}
+                className=&quot;px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer&quot;
+              &gt;
+                Cancelar
+              &lt;/button&gt;
+              &lt;button
+                onClick={executeConfirmedAction}
+                className={`px-4 py-2 text-xs font-semibold text-white rounded-lg transition-colors cursor-pointer ${
+                  confirmAction === &#039;resetBank&#039;
+                    ? &#039;bg-rose-600 hover:bg-rose-700&#039;
+                    : &#039;bg-sky-600 hover:bg-sky-700&#039;
+                }`}
+              &gt;
+                {confirmAction === &#039;resetTest&#039; ? &#039;Sí, reiniciar test&#039; : &#039;Sí, restablecer banco&#039;}
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+}</code></pre>
+<hr>
+<h2>8. DECLARACIÓN JURAMENTADA Y CERTIFICADO DE AUTENTICIDAD</h2>
+<p>Yo, <strong>DANIEL VICK</strong>, identificado como autor y titular de la obra de software titulada <strong>&quot;MATEMÁTICAS DIAGNÓSTICO &amp; REFUERZO ADAPTATIVO — PLATAFORMA DE EVALUACIÓN DIAGNÓSTICA Y NIVELACIÓN DE COMPETENCIAS MATEMÁTICAS&quot;</strong>, declaro bajo la gravedad del juramento que:</p>
+<p>1. El presente documento contiene un muestreo auténtico, veraz y representativo del código fuente de la obra.</p>
+<p>2. Las firmas digitales <strong>SHA-256</strong> de la Tabla General corresponden a los 18 archivos fuente, con un total de <strong>6,454 líneas de código</strong>, en la versión 1.0.0 documentada.</p>
+<p>3. Las porciones intermedias reservadas constituyen métodos propios de implementación, protegidos conforme a la legislación nacional e internacional de Derecho de Autor.</p>
+<p>Para constancia de lo anterior, se expide y firma el presente documento en la ciudad de Manizales, Caldas, República de Colombia, el 20 de Noviembre de 2026.</p>
+<hr>
+<p><strong>DANIEL VICK</strong>  </p>
+<p>Autor y Titular de los Derechos Patrimoniales y Morales  </p>
+<p>Matemáticas Diagnóstico &amp; Refuerzo Adaptativo — Plataforma de Evaluación Diagnóstica y Nivelación de Competencias Matemáticas</p>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (window.mermaid) {
+                mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+            }
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>DOCUMENTO TÉCNICO N° 2: MANUAL TÉCNICO Y ARQUITECTURA DE SOFTWARE</title>
+    <!-- KaTeX CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script>
+    <!-- Mermaid JS -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 20mm 15mm 20mm 15mm;
+            @bottom-center {
+                content: counter(page);
+                font-family: "Times New Roman", Times, serif;
+                font-size: 9pt;
+            }
+        }
+
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 11pt;
+            line-height: 1.45;
+            color: #111111;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        /* ESTILOS DE PORTADA FORMAL LEGAL */
+        .legal-cover {
+            text-align: center;
+            padding: 40px 20px 20px 20px;
+            page-break-after: always;
+            min-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .legal-institution {
+            font-size: 14pt;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .legal-subinstitution {
+            font-size: 10pt;
+            text-transform: uppercase;
+            margin-bottom: 35px;
+            color: #222222;
+        }
+        .legal-title {
+            font-size: 16pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            line-height: 1.25;
+            border-top: 2px solid #000000;
+            border-bottom: 2px solid #000000;
+            padding: 14px 0;
+        }
+        .legal-subtitle {
+            font-size: 11.5pt;
+            font-weight: normal;
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+        .legal-box {
+            margin: 30px auto;
+            width: 90%;
+            border: 1px solid #000000;
+            padding: 18px 22px;
+            text-align: left;
+            font-size: 10pt;
+            line-height: 1.75;
+            background-color: #ffffff;
+        }
+        .legal-box-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        .legal-footer {
+            margin-top: 50px;
+            font-size: 9.5pt;
+            text-transform: uppercase;
+        }
+
+        /* ENCABEZADOS Y JERARQUÍA */
+        h1 {
+            font-size: 14.5pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1.5px solid #000000;
+            padding-bottom: 4px;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            page-break-before: always;
+        }
+        h2 {
+            font-size: 12.5pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px solid #444444;
+            padding-bottom: 3px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            page-break-after: avoid;
+        }
+        h3 {
+            font-size: 11pt;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            page-break-after: avoid;
+        }
+        h4 {
+            font-size: 10pt;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 4px;
+            page-break-after: avoid;
+        }
+        p {
+            margin-bottom: 10px;
+            text-indent: 15px;
+            text-align: justify;
+        }
+        ul {
+            margin-top: 5px;
+            margin-bottom: 12px;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 4px;
+        }
+
+        /* TABLAS FORMALES LEGALES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 9pt;
+            page-break-inside: avoid;
+        }
+        th, td {
+            border: 1px solid #000000;
+            padding: 6px 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 8.5pt;
+        }
+
+        /* CÓDIGO Y BLOQUES */
+        pre {
+            background-color: #f8f8f8;
+            border: 1px solid #444444;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 8.5pt;
+            line-height: 1.25;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            margin: 12px 0;
+            page-break-inside: avoid;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 9pt;
+            background: #f0f0f0;
+            padding: 1px 4px;
+            border: 1px solid #cccccc;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #000000;
+            margin: 20px 0;
+        }
+        .mermaid {
+            background: #ffffff;
+            border: 1px solid #000000;
+            padding: 12px;
+            margin: 15px 0;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+        .mermaid svg {
+            max-width: 100% !important;
+            height: auto !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="legal-cover">
+        <div>
+            <div class="legal-institution">REPÚBLICA DE COLOMBIA</div>
+            <div class="legal-subinstitution">DIRECCIÓN NACIONAL DE DERECHO DE AUTOR — REGISTRO DE SOPORTE LÓGICO</div>
+            <div class="legal-title">DOCUMENTO TÉCNICO N° 2: MANUAL TÉCNICO Y ARQUITECTURA DE SOFTWARE</div>
+            <div class="legal-subtitle">Registro de Propiedad Intelectual — Matemáticas Diagnóstico & Refuerzo Adaptativo</div>
+            
+            <div class="legal-box">
+                <div class="legal-box-row"><strong>DENOMINACIÓN DE LA OBRA:</strong> <span>MATEMÁTICAS DIAGNÓSTICO & REFUERZO ADAPTATIVO</span></div>
+                <div class="legal-box-row"><strong>CLASIFICACIÓN LEGAL:</strong> <span>Soporte Lógico / Programa de Computador</span></div>
+                <div class="legal-box-row"><strong>AUTOR Y TITULAR:</strong> <span>DANIEL VICK</span></div>
+                <div class="legal-box-row"><strong>VERSIÓN DEL SOFTWARE:</strong> <span>1.0.0</span></div>
+                <div class="legal-box-row"><strong>FECHA DE DOCUMENTACIÓN:</strong> <span>20 de Noviembre de 2026</span></div>
+                <div class="legal-box-row"><strong>MARCO REGULATORIO:</strong> <span>Ley 23 de 1982 &amp; Decisión Andina 351</span></div>
+            </div>
+        </div>
+
+        <div class="legal-footer">
+            EXPEDIENTE OFICIAL DE REGISTRO REGISTRAL<br>
+            MANIZALES, CALDAS, COLOMBIA
+        </div>
+    </div>
+
+    <h1>REGISTRO DE PROPIEDAD INTELECTUAL Y ESPECIFICACIÓN DE INGENIERÍA DE SOFTWARE</h1>
+<h2>MANUAL TÉCNICO Y ARQUITECTURA DEL SISTEMA — MATEMÁTICAS DIAGNÓSTICO &amp; REFUERZO ADAPTATIVO</h2>
+<hr>
+<p><strong>INFORMACIÓN FORMAL DEL REGISTRO</strong></p>
+<ul>
+<li><strong>Nombre Comercial del Software:</strong> Matemáticas Diagnóstico &amp; Refuerzo Adaptativo — Plataforma de Evaluación Diagnóstica y Nivelación de Competencias Matemáticas</li>
+<li><strong>Autor y Creador de la Obra:</strong> Daniel Vick</li>
+<li><strong>Versión del Software:</strong> 1.0.0</li>
+<li><strong>Clasificación del Software:</strong> Aplicación web interactiva, sistema psicométrico de diagnóstico matemático y nivelación adaptativa</li>
+<li><strong>Fecha de Documentación:</strong> 20 de Noviembre de 2026</li>
+<li><strong>Licencia:</strong> Derechos Reservados del Autor / Registro de Soporte Lógico DNDA (Ley 23 de 1982 &amp; Decisión Andina 351)</li>
+</ul>
+<hr>
+<h2>1. INTRODUCCIÓN Y FICHA TÉCNICA</h2>
+<p>Este documento contiene la especificación de ingeniería de software, arquitectura de componentes, modelo relacional de datos y formulación matemática de los algoritmos de <strong>Matemáticas Diagnóstico &amp; Refuerzo Adaptativo</strong>.</p>
+<p>La solución está construida bajo la arquitectura de <strong>Single Page Application (SPA)</strong> con renderizado en el cliente (<em>Client-Side Rendering</em>), sin dependencias obligatorias de servidores centrales para el procesamiento psicométrico ni el cálculo numérico, lo que otorga autonomía total de ejecución en cualquier navegador moderno.</p>
+<h3>1.1 Ficha de Componentes y Stack Tecnológico</h3>
+<table><thead><tr><th>Componente</th><th>Tecnología</th><th>Versión</th><th>Función Principal</th></tr></thead><tbody><tr><td>Lenguaje de Desarrollo</td><td>TypeScript</td><td>7.0 / Strict</td><td>Tipado estático exhaustivo de entidades, contratos y lógica algorítmica.</td></tr><tr><td>Biblioteca de Interfaz</td><td>React</td><td>19.0.1</td><td>Renderizado declarativo mediante componentes funcionales e inmutabilidad de Hooks.</td></tr><tr><td>Empaquetador / Bundler</td><td>Vite</td><td>8.3.8</td><td>Servidor de desarrollo HMR ultrarrápido y empaquetador de producción optimizado (Rollup/esbuild).</td></tr><tr><td>Motor de Estilos</td><td>Tailwind CSS</td><td>4.3.3</td><td>Framework de diseño basado en utilidades modernas sin capas de abstracción pesadas.</td></tr><tr><td>Plugin de Integración</td><td>@tailwindcss/vite</td><td>4.3.3</td><td>Integración nativa a nivel de compilador para generación instantánea de CSS mínimo en <code>dist/</code>.</td></tr><tr><td>Iconografía Vectorial</td><td>lucide-react</td><td>0.546.0</td><td>Conjunto de pictogramas SVG optimizados para navegación y estados semánticos.</td></tr><tr><td>Animaciones y Microinteracciones</td><td>motion (Framer Motion)</td><td>12.23.24</td><td>Animaciones físicas de transición fluida y transiciones de estado accesibles.</td></tr><tr><td>Motor de Diagramación</td><td>SVG Nativo / React JSX</td><td>—</td><td>Renderizado procedural de esquemas matemáticos y gráficos geométricos escalables.</td></tr><tr><td>Persistencia Primaria</td><td>Web Storage API (<code>localStorage</code>)</td><td>—</td><td>Almacenamiento local persistente con serialización JSON estricta y segura.</td></tr><tr><td>Plataforma de Despliegue</td><td>Vercel Serverless Platform</td><td>—</td><td>Distribución global en CDN con reescritura de rutas para arquitectura SPA (<code>vercel.json</code>).</td></tr></tbody></table>
+<h3>1.2 Comandos del Ciclo de Vida del Software</h3>
+<table><thead><tr><th>Comando</th><th>Acción y Resultado</th></tr></thead><tbody><tr><td><code>npm install</code></td><td>Resuelve e instala el árbol verificado de dependencias según <code>package-lock.json</code>.</td></tr><tr><td><code>npm run dev</code></td><td>Inicia el servidor de desarrollo local en <code>http://localhost:3000</code> con recarga de módulos en caliente.</td></tr><tr><td><code>npm run build</code></td><td>Compila el código TypeScript a JavaScript puro minificado y genera los activos en la carpeta <code>dist/</code>.</td></tr><tr><td><code>npm run lint</code></td><td>Ejecuta la verificación estática de tipos (<code>tsc --noEmit</code>) sin generar archivos residuales.</td></tr><tr><td><code>npm run docs</code></td><td>Genera y compila toda la documentación oficial en formatos Markdown, HTML, PDF y DOCX.</td></tr></tbody></table>
+<hr>
+<h2>2. ARQUITECTURA DEL SISTEMA Y FLUJO DE DATOS</h2>
+<p>La arquitectura implementa el principio de <strong>flujo de datos unidireccional (<em>Unidirectional Data Flow</em>)</strong>. El componente raíz <code>App</code> actúa como la única fuente de verdad (<em>Single Source of Truth</em>) del estado de la sesión, delegando a componentes puros la visualización y recibiendo eventos de mutación a través de manejadores tipados.</p>
+<pre><code class="language-text">+---------------------------------------------------------------------------------------------------------+
+|                                         NAVEGADOR DEL CLIENTE                                           |
+|                                                                                                         |
+|     +----------------------------------------- App.tsx -------------------------------------------+     |
+|     |  ESTADO GLOBAL DE LA APLICACIÓN:                                                            |     |
+|     |  - questions: Question[]                                                                    |     |
+|     |  - answers: Record&lt;string, &#039;a&#039;|&#039;b&#039;|&#039;c&#039;|&#039;d&#039;|null&gt;                                            |     |
+|     |  - flaggedQuestions: Set&lt;string&gt;                                                            |     |
+|     |  - diagnosticResult: DiagnosticResult | null                                                |     |
+|     |  - activeTab: &#039;test&#039; | &#039;report&#039; | &#039;remediation&#039; | &#039;bank&#039;                                    |     |
+|     |                                                                                             |     |
+|     |  PERSISTENCIA REACTIVA (useEffect):                                                         |     |
+|     |  - localStorage[&#039;math_diag_questions_v1&#039;]  &lt;─── Actualizaciones del banco                   |     |
+|     |  - localStorage[&#039;math_diag_answers_v1&#039;]    &lt;─── Selección de respuestas                     |     |
+|     |  - localStorage[&#039;math_diag_flags_v1&#039;]      &lt;─── Marcas de revisión                          |     |
+|     |  - localStorage[&#039;math_diag_report_v1&#039;]     &lt;─── Resultado diagnóstico procesado             |     |
+|     +--------+------------------+-------------------+--------------------+------------------------+     |
+|              │                  │                   │                    │                              |
+|              ▼                  ▼                   ▼                    ▼                              |
+|         Header.tsx         TestView.tsx     DiagnosticReport.tsx  RemediationView.tsx                   |
+|         (pestañas,         (evaluación,     (tableros visuales,   (ejercicios adaptativos,              |
+|          contadores)        progreso,        semáforos,            síntesis teórica,                     |
+|                             banderas)        fortalezas)           soluciones guiadas)                   |
+|                                 │                                                                       |
+|                                 ▼                                                                       |
+|                         DiagramRenderer.tsx &lt;──────────────────── QuestionBankManager.tsx               |
+|                         (motor SVG con 18                         (gestión, creación, filtros,          |
+|                          tipos de diagramas)                       import/export JSON)                  |
+|                                                                                                         |
+|     SERVICIOS Y MOTORES MATEMÁTICOS:                                                                    |
+|     - diagnosticEngine.ts: computeDiagnosticReport() · getRecommendedRemediations()                     |
+|     - initialQuestions.ts: Banco canónico de 20 preguntas calibradas                                    |
+|     - remediationBank.ts: Banco especializado de remediación                                            |
++---------------------------------------------------------------------------------------------------------+</code></pre>
+<h3>2.1 Estructura del Árbol de Directorios</h3>
+<table><thead><tr><th>Ruta</th><th>Descripción y Contenido</th></tr></thead><tbody><tr><td><code>src/main.tsx</code></td><td>Punto de entrada que inicializa React 19 y ancla la aplicación en el DOM (<code>#root</code>).</td></tr><tr><td><code>src/App.tsx</code></td><td>Orquestador principal de estado, sincronización con <code>localStorage</code> y enrutamiento visual.</td></tr><tr><td><code>src/types.ts</code></td><td>Diccionario formal de tipos TypeScript e interfaces del dominio psicométrico.</td></tr><tr><td><code>src/index.css</code></td><td>Importación de Tailwind CSS v4 y configuración de la directiva <code>@theme</code>.</td></tr><tr><td><code>src/components/Header.tsx</code></td><td>Barra de navegación superior con conmutador de pestañas y botones de control.</td></tr><tr><td><code>src/components/TestView.tsx</code></td><td>Tarjetas interactivas de preguntas, opciones de selección múltiple y marcado.</td></tr><tr><td><code>src/components/DiagnosticReport.tsx</code></td><td>Reporte psicométrico con barras de progreso, categorización y resumen de fortalezas.</td></tr><tr><td><code>src/components/RemediationView.tsx</code></td><td>Vista de nivelación pedagógica con tarjetas de aprendizaje activo y pasos de resolución.</td></tr><tr><td><code>src/components/QuestionBankManager.tsx</code></td><td>Administrador CRUD de preguntas, filtros por área y herramientas de importación/exportación.</td></tr><tr><td><code>src/components/DiagramRenderer.tsx</code></td><td>Motor gráfico procedural que renderiza diagramas matemáticos y geométricos en SVG.</td></tr><tr><td><code>src/data/initialQuestions.ts</code></td><td>Colección de 20 preguntas diagnósticas calibradas con soluciones y explicaciones.</td></tr><tr><td><code>src/data/remediationBank.ts</code></td><td>Repositorio de ejercicios correctivos organizados por saber y competencia.</td></tr><tr><td><code>src/utils/diagnosticEngine.ts</code></td><td>Algoritmos de cálculo psicométrico, semaforización y selección adaptativa.</td></tr><tr><td><code>docs/</code></td><td>Expediente documental oficial de propiedad intelectual (DNDA).</td></tr><tr><td><code>scripts/</code></td><td>Script automatizado para cálculo de firmas SHA-256 y generación de PDF/DOCX.</td></tr></tbody></table>
+<hr>
+<h2>3. FORMULACIÓN MATEMÁTICA Y ALGORITMOS</h2>
+<h3>3.1 Algoritmo de Evaluación Diagnóstica (<code>computeDiagnosticReport</code>)</h3>
+<p>El motor psicométrico evalúa el vector de respuestas del evaluado $A = \{a_1, a_2, \dots, a_N\}$ contra el vector de respuestas canónicas correctas $K = \{k_1, k_2, \dots, k_N\}$ para $N$ preguntas activas.</p>
+<h4>Acierto Individual y Puntuación Total</h4>
+<p>Para cada pregunta $q_i \in Q$:</p>
+<p>$$\delta_i = \begin{cases} 1 & \text{si } a_i = k_i \\ 0 & \text{si } a_i \neq k_i \text{ o } a_i = \text{null} \end{cases}$$</p>
+<p>El total de aciertos $C_{total}$ y el porcentaje de rendimiento global $P_{total}$ se expresan como:</p>
+<p>$$C_{total} = \sum_{i=1}^{N} \delta_i, \qquad P_{total} = \left(\frac{C_{total}}{N}\right) \times 100\%$$</p>
+<h4>Rendimiento Marginal por Área de Saber</h4>
+<p>Dado el conjunto de saberes $S = \{\text{Aritmética}, \text{Álgebra}, \text{Geometría}, \text{Trigonometría}, \text{Cálculo}\}$:</p>
+<p>$$Q_s = \{q_i \in Q \mid q_i.\text{saber} = s\}, \qquad T_s = |Q_s|, \qquad C_s = \sum_{q_i \in Q_s} \delta_i$$</p>
+<p>$$P_s = \begin{cases} \left(\frac{C_s}{T_s}\right) \times 100\% & \text{si } T_s > 0 \\ 0\% & \text{si } T_s = 0 \end{cases}$$</p>
+<h4>Rendimiento Marginal por Habilidad Cognitiva</h4>
+<p>Dado el conjunto de habilidades $H = \{\text{Básicas}, \text{Razonamiento}, \text{Especiales}, \text{Análisis}\}$:</p>
+<p>$$Q_h = \{q_i \in Q \mid q_i.\text{habilidad} = h\}, \qquad T_h = |Q_h|, \qquad C_h = \sum_{q_i \in Q_h} \delta_i$$</p>
+<p>$$P_h = \begin{cases} \left(\frac{C_h}{T_h}\right) \times 100\% & \text{si } T_h > 0 \\ 0\% & \text{si } T_h = 0 \end{cases}$$</p>
+<h4>Función de Clasificación Pedagógica y Semafórica</h4>
+<p>Cada dimensión ($s \in S$ y $h \in H$) se somete a una función de umbral triádica:</p>
+<p>$$\text{Estado}(P) = \begin{cases} </p>
+<p>\text{&quot;Dominio Alto&quot;} &amp; \text{si } P \ge 80\% \\ </p>
+<p>\text{&quot;Aceptable&quot;} &amp; \text{si } 60\% \le P &lt; 80\% \\ </p>
+<p>\text{&quot;Falencia Crítica&quot;} &amp; \text{si } P &lt; 60\% </p>
+<p>\end{cases}$$</p>
+<p>El nivel pedagógico integral del estudiante $\Omega(P_{total})$ se calcula como:</p>
+<p>$$\Omega(P_{total}) = \begin{cases}</p>
+<p>\text{&quot;Sobresaliente&quot;} &amp; \text{si } P_{total} \ge 85\% \\</p>
+<p>\text{&quot;Competente&quot;} &amp; \text{si } 65\% \le P_{total} &lt; 85\% \\</p>
+<p>\text{&quot;Requiere Refuerzo&quot;} &amp; \text{si } 40\% \le P_{total} &lt; 65\% \\</p>
+<p>\text{&quot;Alerta Pedagógica&quot;} &amp; \text{si } P_{total} &lt; 40\%</p>
+<p>\end{cases}$$</p>
+<h3>3.2 Algoritmo de Recomendación Adaptativa (<code>getRecommendedRemediations</code>)</h3>
+<p>El sistema identifica los saberes débiles $S_{weak} = \{s \in S \mid P_s < 70\% \land T_s > 0\}$ y las habilidades débiles $H_{weak} = \{h \in H \mid P_h < 70\% \land T_h > 0\}$.</p>
+<p>A partir del catálogo general de ejercicios correctivos $E_{bank}$, el filtro de selección adaptativa $E_{rec}$ se formula como:</p>
+<p>$$E_{rec} = \{e \in E_{bank} \mid e.\text{saber} \in S_{weak} \lor e.\text{habilidad} \in H_{weak}\}$$</p>
+<p>Si $S_{weak} = \emptyset$ y $H_{weak} = \emptyset$ (rendimiento sobresaliente), el motor selecciona los primeros 5 ejercicios como práctica de maestría matemática. Si $E_{rec} = \emptyset$, retorna un subconjunto canónico base de 4 ejercicios de consolidación.</p>
+<h3>3.3 Algoritmos Gráficos y Matemáticos en <code>DiagramRenderer</code></h3>
+<h4>1. Proyección Isométrica de Cuerpos Tridimensionales (<code>solid_3d</code>, <code>isometric_blocks</code>)</h4>
+<p>Para proyectar un vértice tridimensional $(X, Y, Z)$ del espacio euclídeo en un plano bidimensional de pantalla $(x_{scr}, y_{scr})$, el motor utiliza una proyección axonométrica isométrica con ángulo estándar de inclinación $\theta = 30^\circ$ ($\frac{\pi}{6}$ rad):</p>
+<p>$$x_{scr} = x_{origin} + (X - Y) \cdot \cos(30^\circ) \cdot s$$</p>
+<p>$$y_{scr} = y_{origin} + (X + Y) \cdot \sin(30^\circ) \cdot s - Z \cdot s$$</p>
+<p>donde $s$ representa el factor de escala y $(x_{origin}, y_{origin})$ el punto focal central del lienzo SVG.</p>
+<h4>2. Generación Combinatoria del Triángulo de Pascal (<code>pascal</code>)</h4>
+<p>Los coeficientes de cada nivel $n$ se obtienen mediante la relación recursiva de Tartaglia-Pascal:</p>
+<p>$$\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}, \quad \text{con } \binom{n}{0} = \binom{n}{n} = 1$$</p>
+<p>El renderer calcula la posición horizontal centrada de cada elemento $(n, k)$ según:</p>
+<p>$$x_{n,k} = x_{center} + \left(k - \frac{n}{2}\right) \cdot \Delta x, \quad y_{n,k} = y_{top} + n \cdot \Delta y$$</p>
+<h4>3. Trazado Analítico de Funciones Cuadráticas (<code>parabola_options</code>, <code>quad_roots</code>)</h4>
+<p>Para la función cuadrática $f(x) = ax^2 + bx + c$, el motor determina analíticamente:</p>
+<p>$$\text{Vértice: } \left(x_v, y_v\right) = \left(-\frac{b}{2a}, \; f\left(-\frac{b}{2a}\right)\right)$$</p>
+<p>$$\text{Raíces reales: } x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$</p>
+<p>La curva SVG se parametriza a lo largo de un intervalo continuo $x \in [x_{min}, x_{max}]$ mapeado a coordenadas de píxeles:</p>
+<p>$$X_{px} = W_{mid} + x \cdot S_x, \quad Y_{px} = H_{mid} - f(x) \cdot S_y$$</p>
+<h4>4. Comparativa Volumétrica de Cuerpos de Revolución (<code>cylinder_volumes</code>)</h4>
+<p>Para cilindros con radio $r$ y altura $h$, el volumen exacto se computa con:</p>
+<p>$$V = \pi r^2 h$$</p>
+<p>El renderizador dimensiona la altura visual $H_{svg} \propto h$ y la anchura de la base elíptica $W_{svg} \propto 2r$, manteniendo congruencia métrica y perspectiva axial.</p>
+<hr>
+<h2>4. MODELO DE DATOS Y DEFINICIÓN DE TIPOS</h2>
+<p>El archivo <code>src/types.ts</code> establece el modelo formal de datos mediante contratos inmutables:</p>
+<pre><code class="language-typescript">export type KnowledgeArea = &#039;Aritmética&#039; | &#039;Geometría&#039; | &#039;Trigonometría&#039; | &#039;Álgebra&#039; | &#039;Cálculo&#039;;
+
+export type SkillArea = 
+  | &#039;Habilidades básicas&#039; 
+  | &#039;Procesos de pensamiento y razonamiento&#039; 
+  | &#039;Habilidades especiales&#039; 
+  | &#039;Habilidades de análisis&#039;;
+
+export type DifficultyLevel = &#039;Básico&#039; | &#039;Intermedio&#039; | &#039;Avanzado&#039;;
+
+export interface QuestionOption {
+  label: &#039;a&#039; | &#039;b&#039; | &#039;c&#039; | &#039;d&#039;;
+  text: string;
+  subtext?: string;
+}
+
+export interface Question {
+  id: string;
+  number: number;
+  prompt: string;
+  saber: KnowledgeArea;
+  habilidad: SkillArea;
+  difficulty: DifficultyLevel;
+  diagramType?: string;
+  options: QuestionOption[];
+  correctAnswer: &#039;a&#039; | &#039;b&#039; | &#039;c&#039; | &#039;d&#039;;
+  explanation: string;
+  hint?: string;
+  isCustom?: boolean;
+}
+
+export interface DiagnosticResult {
+  totalQuestions: number;
+  totalCorrect: number;
+  totalPercentage: number;
+  overallLevel: &#039;Sobresaliente&#039; | &#039;Competente&#039; | &#039;Requiere Refuerzo&#039; | &#039;Alerta Pedagógica&#039;;
+  saberBreakdown: SaberDiagnosis[];
+  skillBreakdown: SkillDiagnosis[];
+  fortalezas: string[];
+  falencias: string[];
+  completedAt: string;
+  answers: Record&lt;string, &#039;a&#039; | &#039;b&#039; | &#039;c&#039; | &#039;d&#039; | null&gt;;
+}</code></pre>
+<hr>
+<h2>5. DESPLIEGUE EN PRODUCCIÓN Y CONFIGURACIÓN VERCEL</h2>
+<p>El proyecto se despliega como una aplicación estática compilada en <strong>Vercel</strong>. La configuración de enrutamiento del lado del cliente se encuentra gobernada por el archivo <code>vercel.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;buildCommand&quot;: &quot;vite build&quot;,
+  &quot;outputDirectory&quot;: &quot;dist&quot;,
+  &quot;framework&quot;: &quot;vite&quot;,
+  &quot;rewrites&quot;: [
+    {
+      &quot;source&quot;: &quot;/(.*)&quot;,
+      &quot;destination&quot;: &quot;/index.html&quot;
+    }
+  ]
+}</code></pre>
+<p>Esta directiva de reescritura garantiza que cualquier ruta profunda de la aplicación sea redirigida a <code>index.html</code>, permitiendo a React gestionar el enrutamiento interno sin ocasionar errores HTTP 404.</p>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (window.mermaid) {
+                mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+            }
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        });
+    </script>
+</body>
+</html>

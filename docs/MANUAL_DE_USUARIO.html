@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>DOCUMENTO TÉCNICO N° 1: MANUAL DE USUARIO Y GUÍA DE OPERACIÓN PEDAGÓGICA</title>
+    <!-- KaTeX CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script>
+    <!-- Mermaid JS -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 20mm 15mm 20mm 15mm;
+            @bottom-center {
+                content: counter(page);
+                font-family: "Times New Roman", Times, serif;
+                font-size: 9pt;
+            }
+        }
+
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 11pt;
+            line-height: 1.45;
+            color: #111111;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        /* ESTILOS DE PORTADA FORMAL LEGAL */
+        .legal-cover {
+            text-align: center;
+            padding: 40px 20px 20px 20px;
+            page-break-after: always;
+            min-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .legal-institution {
+            font-size: 14pt;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .legal-subinstitution {
+            font-size: 10pt;
+            text-transform: uppercase;
+            margin-bottom: 35px;
+            color: #222222;
+        }
+        .legal-title {
+            font-size: 16pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            line-height: 1.25;
+            border-top: 2px solid #000000;
+            border-bottom: 2px solid #000000;
+            padding: 14px 0;
+        }
+        .legal-subtitle {
+            font-size: 11.5pt;
+            font-weight: normal;
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+        .legal-box {
+            margin: 30px auto;
+            width: 90%;
+            border: 1px solid #000000;
+            padding: 18px 22px;
+            text-align: left;
+            font-size: 10pt;
+            line-height: 1.75;
+            background-color: #ffffff;
+        }
+        .legal-box-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        .legal-footer {
+            margin-top: 50px;
+            font-size: 9.5pt;
+            text-transform: uppercase;
+        }
+
+        /* ENCABEZADOS Y JERARQUÍA */
+        h1 {
+            font-size: 14.5pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1.5px solid #000000;
+            padding-bottom: 4px;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            page-break-before: always;
+        }
+        h2 {
+            font-size: 12.5pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px solid #444444;
+            padding-bottom: 3px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            page-break-after: avoid;
+        }
+        h3 {
+            font-size: 11pt;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            page-break-after: avoid;
+        }
+        h4 {
+            font-size: 10pt;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 4px;
+            page-break-after: avoid;
+        }
+        p {
+            margin-bottom: 10px;
+            text-indent: 15px;
+            text-align: justify;
+        }
+        ul {
+            margin-top: 5px;
+            margin-bottom: 12px;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 4px;
+        }
+
+        /* TABLAS FORMALES LEGALES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 9pt;
+            page-break-inside: avoid;
+        }
+        th, td {
+            border: 1px solid #000000;
+            padding: 6px 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 8.5pt;
+        }
+
+        /* CÓDIGO Y BLOQUES */
+        pre {
+            background-color: #f8f8f8;
+            border: 1px solid #444444;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 8.5pt;
+            line-height: 1.25;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            margin: 12px 0;
+            page-break-inside: avoid;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 9pt;
+            background: #f0f0f0;
+            padding: 1px 4px;
+            border: 1px solid #cccccc;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #000000;
+            margin: 20px 0;
+        }
+        .mermaid {
+            background: #ffffff;
+            border: 1px solid #000000;
+            padding: 12px;
+            margin: 15px 0;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+        .mermaid svg {
+            max-width: 100% !important;
+            height: auto !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="legal-cover">
+        <div>
+            <div class="legal-institution">REPÚBLICA DE COLOMBIA</div>
+            <div class="legal-subinstitution">DIRECCIÓN NACIONAL DE DERECHO DE AUTOR — REGISTRO DE SOPORTE LÓGICO</div>
+            <div class="legal-title">DOCUMENTO TÉCNICO N° 1: MANUAL DE USUARIO Y GUÍA DE OPERACIÓN PEDAGÓGICA</div>
+            <div class="legal-subtitle">Registro de Propiedad Intelectual — Matemáticas Diagnóstico & Refuerzo Adaptativo</div>
+            
+            <div class="legal-box">
+                <div class="legal-box-row"><strong>DENOMINACIÓN DE LA OBRA:</strong> <span>MATEMÁTICAS DIAGNÓSTICO & REFUERZO ADAPTATIVO</span></div>
+                <div class="legal-box-row"><strong>CLASIFICACIÓN LEGAL:</strong> <span>Soporte Lógico / Programa de Computador</span></div>
+                <div class="legal-box-row"><strong>AUTOR Y TITULAR:</strong> <span>DANIEL VICK</span></div>
+                <div class="legal-box-row"><strong>VERSIÓN DEL SOFTWARE:</strong> <span>1.0.0</span></div>
+                <div class="legal-box-row"><strong>FECHA DE DOCUMENTACIÓN:</strong> <span>20 de Noviembre de 2026</span></div>
+                <div class="legal-box-row"><strong>MARCO REGULATORIO:</strong> <span>Ley 23 de 1982 &amp; Decisión Andina 351</span></div>
+            </div>
+        </div>
+
+        <div class="legal-footer">
+            EXPEDIENTE OFICIAL DE REGISTRO REGISTRAL<br>
+            MANIZALES, CALDAS, COLOMBIA
+        </div>
+    </div>
+
+    <h1>REGISTRO DE PROPIEDAD INTELECTUAL Y GUÍA DE OPERACIÓN PEDAGÓGICA</h1>
+<h2>MANUAL DE USUARIO — MATEMÁTICAS DIAGNÓSTICO &amp; REFUERZO ADAPTATIVO</h2>
+<hr>
+<p><strong>INFORMACIÓN FORMAL DEL REGISTRO</strong></p>
+<ul>
+<li><strong>Nombre Comercial del Software:</strong> Matemáticas Diagnóstico &amp; Refuerzo Adaptativo — Plataforma de Evaluación Diagnóstica y Nivelación de Competencias Matemáticas</li>
+<li><strong>Autor y Creador de la Obra:</strong> Daniel Vick</li>
+<li><strong>Versión del Software:</strong> 1.0.0</li>
+<li><strong>Clasificación del Software:</strong> Aplicación web interactiva, sistema psicométrico de diagnóstico matemático y nivelación adaptativa</li>
+<li><strong>Fecha de Documentación:</strong> 20 de Noviembre de 2026</li>
+<li><strong>Licencia:</strong> Derechos Reservados del Autor / Registro de Soporte Lógico DNDA (Ley 23 de 1982 &amp; Decisión Andina 351)</li>
+</ul>
+<hr>
+<h2>1. INTRODUCCIÓN Y PROPÓSITO PEDAGÓGICO</h2>
+<p>El presente <strong>Manual de Usuario</strong> constituye la guía integral de operación y aprovechamiento pedagógico del software <strong>Matemáticas Diagnóstico &amp; Refuerzo Adaptativo</strong>. Esta plataforma ha sido diseñada como un entorno de evaluación formativa y nivelación personalizada que diagnostica con rigor técnico el dominio de estudiantes y evaluados en cinco saberes nucleares de las matemáticas y cuatro dimensiones cognitivas fundamentales:</p>
+<h3>1.1 Saberes Matemáticos Evaluados</h3>
+<p>1. <strong>Aritmética:</strong> Estructuras numéricas, proporcionalidad, progresiones, teoría de números, secuencias y Triángulo de Pascal.</p>
+<p>2. <strong>Geometría:</strong> Propiedades espaciales, perímetros, áreas, desarrollo plano de poliedros, geometría cartesiana tridimensional y relaciones métricas.</p>
+<p>3. <strong>Trigonometría:</strong> Razones trigonométricas en triángulos rectángulos, ángulos de elevación y depresión, identidades fundamentales y resolución de problemas de aplicación geométrica.</p>
+<p>4. <strong>Álgebra:</strong> Lenguaje algebraico, factorización, simplificación de expresiones racionales y radicales, ecuaciones de primer y segundo grado, y modelado simbólico.</p>
+<p>5. <strong>Cálculo:</strong> Comportamiento de funciones cuadráticas y polinómicas, análisis de gráficas (vértices, asíntotas, concavidad), optimización geométrica, cálculo de volúmenes de cuerpos de revolución y variación acumulada.</p>
+<h3>1.2 Habilidades Cognitivas Diagnosticadas</h3>
+<p>1. <strong>Habilidades básicas:</strong> Comprensión de conceptos elementales, lectura directa de datos y aplicación inmediata de definiciones y algoritmos estándar.</p>
+<p>2. <strong>Procesos de pensamiento y razonamiento:</strong> Reconocimiento de regularidades, deducción lógica, secuenciación inductiva y argumentación deductiva formal.</p>
+<p>3. <strong>Habilidades especiales (Orientación y Visualización Espacial):</strong> Capacidad de rotación mental tridimensional, traslación de vistas planas a sólidas, manipulación de desarrollos en el espacio y lectura de sistemas coordenados $XYZ$.</p>
+<p>4. <strong>Habilidades de análisis:</strong> Descomposición de problemas complejos en partes elementales, contraste de variables interdependientes, síntesis e inferencia de conclusiones a partir de modelos matemáticos.</p>
+<p>Toda la aplicación opera de manera local en el navegador (<em>Client-Side Execution</em>) haciendo uso del almacenamiento persistente <code>localStorage</code>. Esto garantiza privacidad absoluta para el estudiante, rendimiento instantáneo sin latencia de red y funcionamiento continuo incluso sin conexión a Internet una vez cargada la aplicación.</p>
+<hr>
+<h2>2. ESTRUCTURA DE LA INTERFAZ</h2>
+<p>La interfaz de usuario ha sido concebida siguiendo los más rigurosos estándares de diseño limpio, accesibilidad universal (WCAG AA), tipografía técnica de alta legibilidad (<code>Plus Jakarta Sans</code> y <code>JetBrains Mono</code>) y ausencia de elementos superfluos. La navegación se organiza mediante cuatro módulos principales accesibles desde la barra superior:</p>
+<pre><code class="language-text">+---------------------------------------------------------------------------------------------------------+
+|  MATEMÁTICAS DIAGNÓSTICO &amp; REFUERZO ADAPTATIVO                       [Saber / Habilidad / Estado]       |
+|  [Evaluación (n)]    [Diagnóstico]    [Refuerzo Adaptativo]    [Banco de Preguntas (20)]   [Reiniciar]  |
++---------------------------------------------------------------------------------------------------------+
+|                                                                                                         |
+|   ZONA DE TRABAJO (cambia dinámicamente según la pestaña activa seleccionada)                          |
+|                                                                                                         |
++---------------------------------------------------------------------------------------------------------+</code></pre>
+<ul>
+<li><strong>Evaluación (<code>TestView</code>):</strong> Entorno de examen donde se presentan las preguntas, diagramas interactivos y opciones de respuesta.</li>
+<li><strong>Diagnóstico (<code>DiagnosticReport</code>):</strong> Informe psicométrico completo con semaforización de desempeño, desglose analítico por saber y habilidad, y lista de fortalezas y falencias detectadas.</li>
+<li><strong>Refuerzo Adaptativo (<code>RemediationView</code>):</strong> Entorno de nivelación guiada que ofrece ejercicios específicos para superar los conceptos reprobados o dudosos.</li>
+<li><strong>Banco de Preguntas (<code>QuestionBankManager</code>):</strong> Módulo administrativo para visualizar, filtrar, agregar, eliminar, respaldar y restaurar preguntas en formato JSON.</li>
+</ul>
+<hr>
+<h2>3. MÓDULOS FUNCIONALES Y GUÍA PASO A PASO</h2>
+<h3>3.1 Módulo 1: Presentación de la Evaluación (<code>TestView</code>)</h3>
+<p>El módulo de evaluación permite al estudiante contestar el cuestionario de manera interactiva, clara y sin distracciones.</p>
+<p>1. <strong>Lectura del enunciado:</strong> Cada pregunta presenta su número correlativo, el área de saber a la que pertenece, la habilidad evaluada y su nivel de dificultad (<em>Básico</em>, <em>Intermedio</em> o <em>Avanzado</em>).</p>
+<p>2. <strong>Visualización diagramática integrada:</strong> Si la pregunta requiere apoyo gráfico, el motor <code>DiagramRenderer</code> genera directamente en pantalla diagramas vectoriales SVG nítidos e interactivos (sólidos 3D, funciones parabólicas, esquemas de trigonometría, patrones circulares, etc.).</p>
+<p>3. <strong>Selección de respuesta:</strong> El usuario hace clic sobre cualquiera de las 4 opciones (<code>a</code>, <code>b</code>, <code>c</code>, <code>d</code>). La opción seleccionada se resalta visualmente en color azul índigo institucional.</p>
+<p>4. <strong>Marcado de preguntas dudosas (<em>Flagging</em>):</strong> En la esquina superior derecha de cada tarjeta de pregunta se ubica el botón <strong>Marcar para revisión</strong> (icono de bandera). Permite identificar ítems sobre los cuales el estudiante duda, manteniéndolos destacados para una segunda lectura antes de enviar la prueba.</p>
+<p>5. <strong>Barra de navegación y progreso:</strong> En la cabecera del examen se visualiza el porcentaje exacto de avance y la cantidad de preguntas contestadas frente al total.</p>
+<p>6. <strong>Envío de la prueba:</strong> Al finalizar, el botón <strong>Finalizar y Generar Diagnóstico</strong> procesa instantáneamente las respuestas y transfiere al usuario a la pestaña de <strong>Diagnóstico</strong>.</p>
+<h3>3.2 Módulo 2: Informe y Diagnóstico Pedagógico (<code>DiagnosticReport</code>)</h3>
+<p>El motor de diagnóstico evalúa de forma multivariable el desempeño global y desglosado:</p>
+<p>1. <strong>Calificación y Nivel Global:</strong> Muestra el porcentaje de aciertos ($0\%$ a $100\%$) y clasifica al estudiante en uno de cuatro estadios pedagógicos:</p>
+<ul>
+<li><strong>Sobresaliente ($\ge 85\%$):</strong> Dominio integral de conceptos y destrezas matemáticas avanzadas.</li>
+<li><strong>Competente ($65\% - 84\%$):</strong> Nivel adecuado con bases sólidas y falencias menores no estructurales.</li>
+<li><strong>Requiere Refuerzo ($40\% - 64\%$):</strong> Dominio parcial con vacíos conceptuales que comprometen la continuidad académica.</li>
+<li><strong>Alerta Pedagógica ($< 40\%$):</strong> Dificultades graves y generalizadas que exigen intervención inmediata.</li>
+<p>2. <strong>Desglose por Áreas de Saber:</strong> Tablero analítico que evalúa de forma independiente Aritmética, Álgebra, Geometría, Trigonometría y Cálculo, señalando aciertos, total de preguntas y estado (<em>Dominio Alto</em>, <em>Aceptable</em> o <em>Falencia Crítica</em>).</p>
+<p>3. <strong>Desglose por Habilidades Cognitivas:</strong> Análisis transversal del razonamiento, habilidades espaciales, habilidades básicas y capacidad analítica.</p>
+<p>4. <strong>Matriz de Fortalezas y Falencias:</strong> Cuadro narrativo generado algorítmicamente que explica con exactitud en qué temas el estudiante demuestra solvencia y en cuáles presenta errores reiterados.</p>
+<p>5. <strong>Pasarela de Refuerzo:</strong> El botón <strong>Iniciar Nivelación Adaptativa</strong> conduce directamente a los ejercicios recomendados para subsanar los puntos débiles identificados.</p>
+</ul>
+<h3>3.3 Módulo 3: Refuerzo y Nivelación Adaptativa (<code>RemediationView</code>)</h3>
+<p>Este módulo implementa el enfoque de educación adaptativa:</p>
+<p>1. <strong>Filtrado inteligente:</strong> La aplicación no abruma al estudiante con todos los ejercicios del banco, sino que selecciona automáticamente aquellos ejercicios orientados a las áreas donde obtuvo un rendimiento inferior al $70\%$.</p>
+<p>2. <strong>Síntesis Conceptual y Fórmulas:</strong> Cada ejercicio de remediación inicia con una cápsula teórica concisa (<em>Concept Summary</em>) y un recordatorio de fórmulas clave o estrategias de resolución.</p>
+<p>3. <strong>Desarrollo Paso a Paso:</strong> Al responder, el estudiante accede a una explicación detallada paso a paso que descompone el razonamiento matemático necesario para alcanzar la respuesta correcta.</p>
+<p>4. <strong>Autonomía:</strong> El estudiante puede practicar tantas veces como sea necesario hasta consolidar la competencia y retornar al examen para comprobar su progreso.</p>
+<h3>3.4 Módulo 4: Administrador del Banco de Preguntas (<code>QuestionBankManager</code>)</h3>
+<p>Diseñado tanto para estudiantes avanzados como para docentes y evaluadores institucionales:</p>
+<p>1. <strong>Exploración y Filtrado:</strong> Permite buscar y filtrar preguntas por área de saber (Aritmética, Geometría, etc.), por habilidad o por nivel de dificultad.</p>
+<p>2. <strong>Creación de Nuevas Preguntas:</strong> Formulario estructurado para incorporar preguntas al banco, especificando enunciado, opciones, respuesta correcta, retroalimentación pedagógica, pista de ayuda y tipo de diagrama asociado.</p>
+<p>3. <strong>Importación y Exportación JSON:</strong></p>
+<ul>
+<li><strong>Exportar Banco:</strong> Descarga un archivo estructurado <code>preguntas_matematicas_diagnostico.json</code> para respaldar la información o compartirla entre computadores.</li>
+<li><strong>Importar Banco:</strong> Permite cargar bancos masivos creados por docentes.</li>
+<p>4. <strong>Restablecimiento Canónico:</strong> Un botón de reinicio seguro permite volver en cualquier momento al banco oficial de 20 preguntas calibradas del examen.</p>
+</ul>
+<hr>
+<h2>4. CATÁLOGO DE DIAGRAMAS MATEMÁTICOS INTEGRADOS</h2>
+<p>El sistema cuenta con un motor de representación gráfica (<code>DiagramRenderer</code>) que genera 18 tipologías de diagramas matemáticos vectoriales en tiempo real:</p>
+<table><thead><tr><th>Identificador</th><th>Descripción Matemática y Visual</th><th>Saber Principal</th></tr></thead><tbody><tr><td><code>pascal</code></td><td>Representación triangular piramidal con sumas de coeficientes binomiales $\binom{n}{k}$.</td><td>Aritmética</td></tr><tr><td><code>trees_triangle</code></td><td>Campo triangular discreto con distribución perimetral de elementos y nodos en vértices.</td><td>Geometría</td></tr><tr><td><code>circle_sequence</code></td><td>Secuencia angular de sectores circulares con progresiones numéricas en sentido horario.</td><td>Aritmética</td></tr><tr><td><code>symbols_equation</code></td><td>Balanzas algebraicas y sistemas de ecuaciones lineales resueltas mediante íconos y figuras.</td><td>Álgebra</td></tr><tr><td><code>cube_net</code></td><td>Desarrollo plano bidimensional de un cubo con solapas y rotulación de segmentos coincidentes.</td><td>Geometría</td></tr><tr><td><code>solid_3d</code></td><td>Prisma escalonado tridimensional en perspectiva isométrica con proyecciones sobre ejes $X, Y, Z$.</td><td>Geometría / Cálculo</td></tr><tr><td><code>parabola_options</code></td><td>Conjunto cuádruple de curvas parabólicas cuadráticas con identificación de raíces y vértices.</td><td>Cálculo / Álgebra</td></tr><tr><td><code>fraction_bracket</code></td><td>Diagrama jerárquico de operaciones fraccionarias con corchetes y orden de precedencia.</td><td>Aritmética</td></tr><tr><td><code>radical_expr</code></td><td>Expresiones con radicales anidados, racionalización y simplificación de potencias fraccionarias.</td><td>Álgebra</td></tr><tr><td><code>formula_k</code></td><td>Gráfico de dispersión y proporcionalidad directa/inversa con constante de proporcionalidad $k$.</td><td>Álgebra</td></tr><tr><td><code>cube_triangle</code></td><td>Cubo unitario con triángulo rectángulo interior formado por una diagonal de cara y una arista.</td><td>Geometría</td></tr><tr><td><code>cylinder_volumes</code></td><td>Comparativa gráfica proporcional de tres cilindros de diferente radio y altura ($V = \pi r^2 h$).</td><td>Cálculo / Geometría</td></tr><tr><td><code>quad_roots</code></td><td>Representación analítica de la parábola $Y = 2X^2 + 3X - 5$ y sus cortes con el eje de abscisas.</td><td>Cálculo / Álgebra</td></tr><tr><td><code>fibonacci_seq</code></td><td>Espiral geométrica áurea y secuencia aditiva de términos consecutivos.</td><td>Aritmética</td></tr><tr><td><code>trig_diagram_options</code></td><td>Opciones de triángulos rectángulos para identificar razones seno, coseno y tangente.</td><td>Trigonometría</td></tr><tr><td><code>ladder_trig</code></td><td>Problema de aplicación de escalera apoyada sobre pared vertical con ángulo de elevación.</td><td>Trigonometría</td></tr><tr><td><code>isometric_blocks</code></td><td>Composición isométrica de cubos unitarios para conteo espacial de volumen y áreas visibles.</td><td>Geometría</td></tr><tr><td><code>fraction_equation</code></td><td>Modelado gráfico de áreas sombreadas y equivalencia con ecuaciones fraccionarias.</td><td>Álgebra / Aritmética</td></tr></tbody></table>
+<hr>
+<h2>5. FLUJO DE TRABAJO RECOMENDADO</h2>
+<pre><code class="language-text">  [ Inicio de Sesión ]
+           │
+           ▼
+  [ Módulo de Evaluación ] ──► Responder 20 preguntas con diagramas interactivos
+           │                   Marcar con bandera las preguntas con dudas
+           ▼
+  [ Envío del Examen ] ──► Procesamiento instantáneo por el motor psicométrico
+           │
+           ▼
+  [ Informe Diagnóstico ] ──► Revisar nivel global, semáforo por saber y habilidades
+           │                  Identificar fortalezas y falencias críticas
+           ▼
+  [ Nivelación Adaptativa ] ──► Resolver ejercicios focalizados en las falencias
+           │                    Consultar cápsulas de teoría y pasos de solución
+           ▼
+  [ Reevaluación o Práctica ] ──► Reiniciar el test o añadir nuevas preguntas al banco</code></pre>
+<hr>
+<h2>6. PERSISTENCIA Y PRIVACIDAD</h2>
+<p>Toda la persistencia se gestiona en el almacenamiento local del cliente (<code>localStorage</code>), bajo las siguientes claves:</p>
+<ul>
+<li><code>math_diag_questions_v1</code>: Arreglo de objetos <code>Question[]</code> con el banco actual.</li>
+<li><code>math_diag_answers_v1</code>: Registro de selecciones del usuario <code>{ [questionId]: &#039;a&#039; | &#039;b&#039; | &#039;c&#039; | &#039;d&#039; }</code>.</li>
+<li><code>math_diag_flags_v1</code>: Conjunto de identificadores de preguntas marcadas para revisión.</li>
+<li><code>math_diag_report_v1</code>: Objeto serializado <code>DiagnosticResult</code> con el último informe generado.</li>
+</ul>
+<p>El software no recopila, procesa ni transmite datos personales sensibles hacia servidores de terceros.</p>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (window.mermaid) {
+                mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+            }
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        });
+    </script>
+</body>
+</html>
