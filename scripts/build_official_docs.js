@@ -728,46 +728,16 @@ document.addEventListener("DOMContentLoaded", async function () {
 });
 </script>`;
 
-function renderedHtmlForWord(htmlPath, assetDir) {
-    const variant = path.join(DOCS_DIR, `.__variant_${path.basename(htmlPath)}`);
-    const html = fs.readFileSync(htmlPath, 'utf8').replace(/<script>\s*document\.addEventListener[\s\S]*?<\/script>/, () => WORD_RENDER_SCRIPT);
-    fs.writeFileSync(variant, html, 'utf8');
-    let dom;
+function convertPdfToDocx(pdfPath, docxPath) {
+    const vbs = path.join(DOCS_DIR, '.__pdf_to_docx.vbs');
     try {
-        dom = execSync(`${EDGE_PATH} --headless --disable-gpu --virtual-time-budget=15000 --dump-dom "${fileUrl(variant)}"`, {
-            encoding: 'utf8',
-            maxBuffer: 128 * 1024 * 1024
-        });
-    } finally {
-        fs.rmSync(variant, { force: true });
-    }
-    let n = 0;
-    dom = dom.replace(/src="data:image\/png;base64,([^"]+)"/g, (_, b64) => {
-        const file = path.join(assetDir, `diagrama_${++n}.png`);
-        fs.writeFileSync(file, Buffer.from(b64, 'base64'));
-        return `src="${fileUrl(file)}"`;
-    });
-    return dom.replace(/<script[\s\S]*?<\/script>/gi, '');
-}
-
-function convertToDocx(htmlPath, docxPath) {
-    const assetDir = path.join(DOCS_DIR, `.__assets_${path.basename(htmlPath, '.html')}`);
-    fs.mkdirSync(assetDir, { recursive: true });
-    const tmp = path.join(DOCS_DIR, `.__word_${path.basename(htmlPath)}`);
-    const vbs = path.join(DOCS_DIR, '.__html_to_docx.vbs');
-    try {
-        fs.writeFileSync(tmp, `<!DOCTYPE html>\n${renderedHtmlForWord(htmlPath, assetDir)}`, 'utf8');
         fs.writeFileSync(vbs, [
             'Set w = CreateObject("Word.Application")',
             'w.Visible = False',
+            'w.DisplayAlerts = 0',
             'On Error Resume Next',
             'Set d = w.Documents.Open(WScript.Arguments(0), False, True)',
             'If Err.Number = 0 Then',
-            '  For Each s In d.InlineShapes',
-            '    s.LinkFormat.SavePictureWithDocument = True',
-            '    s.LinkFormat.BreakLink',
-            '  Next',
-            '  Err.Clear',
             '  d.SaveAs2 WScript.Arguments(1), 16',
             '  d.Close False',
             'End If',
@@ -775,11 +745,9 @@ function convertToDocx(htmlPath, docxPath) {
             'w.Quit',
             'WScript.Quit code'
         ].join('\r\n'), 'utf8');
-        execSync(`cscript //nologo "${vbs}" "${path.resolve(tmp)}" "${path.resolve(docxPath)}"`, { stdio: 'pipe' });
+        execSync(`cscript //nologo "${vbs}" "${path.resolve(pdfPath)}" "${path.resolve(docxPath)}"`, { stdio: 'pipe' });
     } finally {
-        fs.rmSync(tmp, { force: true });
         fs.rmSync(vbs, { force: true });
-        fs.rmSync(assetDir, { recursive: true, force: true });
     }
 }
 
@@ -816,7 +784,7 @@ function convertToDocx(htmlPath, docxPath) {
         }
 
         try {
-            convertToDocx(htmlPath, docxPath);
+            convertPdfToDocx(pdfPath, docxPath);
             console.log(`  DOCX  ${t.docx} (${(fs.statSync(docxPath).size / 1024).toFixed(1)} KB)\n`);
         } catch (err) {
             console.error(`  Error al generar ${t.docx}: ${err.message}\n`);
