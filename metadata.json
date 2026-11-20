@@ -1,0 +1,6 @@
+{
+  "name": "Matemáticas Diagnóstico & Refuerzo Adaptativo",
+  "description": "Sistema de evaluación diagnóstica de saberes matemáticos (Aritmética, Álgebra, Geometría, Trigonometría, Cálculo) y habilidades cognitivas, con análisis de fortalezas y falencias, banco de preguntas ampliable y ejercicios de nivelación adaptativa.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
